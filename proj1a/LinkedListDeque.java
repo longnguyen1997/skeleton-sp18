@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
+    private final ListNode<T> frontSentinel;
+    private final ListNode<T> backSentinel;
     private int size;
-    private ListNode<T> frontSentinel;
     private ListNode<T> list;
-    private ListNode<T> backSentinel;
 
     public LinkedListDeque() {
         this.size = 0;
@@ -88,8 +88,10 @@ public class LinkedListDeque<T> {
         if (size == 0) return null;
         frontSentinel.next = list.next;
         list.next.previous = frontSentinel;
+        final T item = list.value;
+        list = list.next;
         size -= 1;
-        return (T) list.value;
+        return item;
     }
 
     /**

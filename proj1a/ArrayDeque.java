@@ -1,8 +1,8 @@
 public class ArrayDeque<T> {
-    T[] items;
-    int size;
-    int nextHead;
-    int nextTail;
+    private T[] items;
+    private int size;
+    private int nextHead;
+    private int nextTail;
 
     public ArrayDeque() {
         this.items = (T[]) new Object[8];
@@ -89,17 +89,19 @@ public class ArrayDeque<T> {
         size -= 1;
         // Move the pointer back by 1.
         nextHead = mod(nextHead + 1);
+        T first = items[nextHead];
         resize();
         // Pointer location is now the first element.
-        return items[nextHead];
+        return first;
     }
 
     public T removeLast() {
         if (size == 0) return null;
         size -= 1;
         nextTail = mod(nextTail - 1);
+        T last = items[nextTail];
         resize();
-        return items[nextTail];
+        return last;
     }
 
     public boolean isEmpty() {

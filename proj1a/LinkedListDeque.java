@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
-    int size;
-    ListNode<T> frontSentinel;
-    ListNode<T> list;
-    ListNode<T> backSentinel;
+    private int size;
+    private ListNode<T> frontSentinel;
+    private ListNode<T> list;
+    private ListNode<T> backSentinel;
 
     public LinkedListDeque() {
         this.size = 0;

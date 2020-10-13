@@ -1,35 +1,17 @@
 package hw3.hash;
-import java.awt.Color;
-import edu.princeton.cs.algs4.StdRandom;
+
 import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdRandom;
+
+import java.awt.*;
 
 
 public class SimpleOomage implements Oomage {
+    private static final double WIDTH = 0.01;
+    private static final boolean USE_PERFECT_HASH = true;
     protected int red;
     protected int green;
     protected int blue;
-
-    private static final double WIDTH = 0.01;
-    private static final boolean USE_PERFECT_HASH = false;
-
-    @Override
-    public boolean equals(Object o) {
-        // TODO: Write this method.
-        return false;
-    }
-
-    /* Uncomment this method after you've written
-       equals and failed the testHashCodeAndEqualsConsistency
-       test.
-    @Override
-    public int hashCode() {
-        if (!USE_PERFECT_HASH) {
-            return red + green + blue;
-        } else {
-            // TODO: Write a perfect hash function for Simple Oomages.
-            return 0;
-        }
-    }*/
 
     public SimpleOomage(int r, int g, int b) {
         if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
@@ -41,12 +23,6 @@ public class SimpleOomage implements Oomage {
         red = r;
         green = g;
         blue = b;
-    }
-
-    @Override
-    public void draw(double x, double y, double scalingFactor) {
-        StdDraw.setPenColor(new Color(red, green, blue));
-        StdDraw.filledSquare(x, y, WIDTH * scalingFactor);
     }
 
     public static SimpleOomage randomSimpleOomage() {
@@ -62,6 +38,47 @@ public class SimpleOomage implements Oomage {
         randomSimpleOomage().draw(0.75, 0.75, 1);
         randomSimpleOomage().draw(0.25, 0.75, 1);
         randomSimpleOomage().draw(0.75, 0.25, 1);
+    }
+
+    public int getRed() {
+        return red;
+    }
+
+    public int getGreen() {
+        return green;
+    }
+
+    public int getBlue() {
+        return blue;
+    }
+
+    @Override
+    public int hashCode() {
+        if (!USE_PERFECT_HASH) {
+            return red + green + blue;
+        } else {
+            return ((red + 255) * 255 + (green + 500) * 255 * 255 + (blue + 1000) * 255 * 255 * 255) / 5 * 31;
+        }
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o.getClass() != this.getClass()) {
+            return false;
+        }
+        final SimpleOomage that = (SimpleOomage) o;
+        // Reflexivity and symmetry.
+        return red == that.getRed() && green == that.getGreen() && blue == that.getBlue();
+    }
+
+    @Override
+    public void draw(double x, double y, double scalingFactor) {
+        StdDraw.setPenColor(new Color(red, green, blue));
+        StdDraw.filledSquare(x, y, WIDTH * scalingFactor);
     }
 
     public String toString() {
